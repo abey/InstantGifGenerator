@@ -1,0 +1,95 @@
+<html>
+<head>
+	<script src="gifshot.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+				  <h1 style="text-align: center; padding-bottom: 0.6em; color: black; font-size: 2em;">Instant GIF Generator</h1>
+		</div>
+		<div class=" center-block">
+			<img height="400px" width="400px" src="placeholder.jpg" id="imageID">
+		</div>
+		<div class="row mod text-center">
+			<div>
+				<button type="button" onclick="generate('Good Work 👍')" class="cus-btn cus-btn--md cus-btn--blue">Good Work 👍</button>
+				<button type="button" onclick="generate('Lol! 😂😂😂')" class="cus-btn cus-btn--md cus-btn--blue">Lol! 😂😂😂</button>
+				<button type="button" onclick="generate('🤷')" class="cus-btn cus-btn--md cus-btn--blue">🤷</button>
+				<button type="button" onclick="generate('😡')" class="cus-btn cus-btn--md cus-btn--blue">😡</button>
+			</div>
+			<hr />
+			<h4 data-toggle="collapse" data-target="#demo">Click Here to toggle Advanced Options</h4>
+			<div id="demo" class="collapse col-xs-12">
+				<p>Custom Input: <input id="text" placeholder="Type somethin' in here" type="text"></p>
+				<p>Text Colour (hex): <input id="colour" placeholder="#ffffff" type="text"></p>
+				<p>Font Size (px): <input id="fontSize" placeholder="50px" type="text"></p>
+				<p>Font family <a href="https://websitesetup.org/web-safe-fonts-html-css" target="_blank">(Reference)</a>: <input id="fontFamily" placeholder="cursive" type="text"></p>
+				<button class="cus-btn cus-btn--md cus-btn--blue disabled" onclick="customGenerate()">Generate</button>
+				<button class="cus-btn cus-btn--md cus-btn--red" onclick="reset()">Reset</button>
+			</div>
+		</div>  
+	</div>
+<script>
+	function generate(text) {
+	gifshot.createGIF({
+	    gifWidth: 400,
+	    gifHeight: 400,
+	    interval: 0.1,
+	    numFrames: 10,
+	    frameDuration: 1,
+	    text: text,
+	    fontWeight: 'normal',
+	    fontSize: '50px',
+	    fontFamily: 'cursive',
+	    fontColor: '#ffffff',
+	    textAlign: 'center',
+	    textBaseline: 'bottom',
+	    sampleInterval: 10,
+	    numWorkers: 2
+	}, function (obj) {
+	    if (!obj.error) {
+	        var image = obj.image, animatedImage = document.getElementById("imageID").src;
+	        document.getElementById("imageID").src = image;
+	    }
+	});
+	}
+	function customGenerate() {
+		var text = document.getElementById('text').value || 'uh oh';
+		var colour = document.getElementById('colour').value || '#ffffff';
+		var font_size = document.getElementById('fontSize').value || '50px';
+		var font_family = document.getElementById('fontFamily').value || 'cursive';
+	gifshot.createGIF({
+	    gifWidth: 400,
+	    gifHeight: 400,
+	    interval: 0.1,
+	    numFrames: 10,
+	    frameDuration: 1,
+	    text: text,
+	    fontWeight: 'normal',
+	    fontSize: font_size,
+	    fontFamily: font_family,
+	    fontColor: colour,
+	    textAlign: 'center',
+	    textBaseline: 'bottom',
+	    sampleInterval: 10,
+	    numWorkers: 2
+	}, function (obj) {
+	    if (!obj.error) {
+	        var image = obj.image, animatedImage = document.getElementById("imageID").src;
+	        document.getElementById("imageID").src = image;
+	    }
+	});
+	}
+	function reset() {
+		document.getElementById("imageID").src = "placeholder.jpg";
+	}
+</script>
+</body>
+</html>
